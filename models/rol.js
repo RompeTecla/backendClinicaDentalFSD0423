@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Rol.init({
-    privilege: DataTypes.STRING
+    rolType: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Rol',
