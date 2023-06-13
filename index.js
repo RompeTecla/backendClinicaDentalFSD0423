@@ -1,24 +1,11 @@
 const express = require('express');
+// const db = require('./db');
+const routes = require("./router");
 const app = express();
 const PORT = 3000;
-const router = require('./router');
-const auth = require('./middlewares/verifyToken')
-
-
-const authController = require('./controllers/authController');
-
-
-app.use('/auth', authRouter);
-
-
-
-
-
-
-
-
 
 app.use(express.json());
+app.use(routes)
 
 //Pruebas al levantar el servidor en local
 
