@@ -3,8 +3,10 @@ const express = require('express');
 const routes = require("./router");
 const app = express();
 const PORT = 3000;
+const auth = require('./middlewares/verifyToken')
 
-app.use(express.json());
+const authController = require('./controllers/authController');
+
 app.use(routes)
 
 //Pruebas al levantar el servidor en local

@@ -2,7 +2,7 @@ const { User } = require ("../models/");
 const bcrypt = require("bcrypt");
 const jwt = require('jsonwebtoken');
 
-const authController = {}
+const authController = {};
 
 //Función para el login de Usuario
 authController.login = async (req, res) => {
@@ -50,7 +50,13 @@ authController.login = async (req, res) => {
         )
 
     } catch (error) {
-        return res.status(500).send(error.message)
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Ha habido un problema con el login",
+                error: error
+            }
+        )
     }
 };
 
