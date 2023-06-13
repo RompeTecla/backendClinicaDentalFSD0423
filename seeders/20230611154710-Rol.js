@@ -10,12 +10,12 @@ module.exports = {
         updatedAt: new Date() 
       },
       {
-        rolType: 'Admin', 
+        rolType: 'Dentist', 
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        rolType: 'Superadmin',
+        rolType: 'Admin',
         createdAt: new Date(),
         updatedAt: new Date()
       },
