@@ -1,8 +1,9 @@
 
-const auth = require("../controllers/auth");
+
+const authController = require("../controllers/authController");
 const router = require("express").Router()
 
 // Ruta para la autenticación
-router.post("/login", auth.login);
+router.post("/login", authController.login);
 
 module.exports = router
