@@ -15,6 +15,9 @@ module.exports = {
       duration: {
         type: Sequelize.STRING
       },
+      num_sessions: {
+        type: Sequelize.INTEGER
+      },
       price: {
         type: Sequelize.STRING
       },

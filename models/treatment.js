@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   Treatment.init({
     name: DataTypes.STRING,
     duration: DataTypes.STRING,
+    num_sessions: DataTypes.INTEGER,
     price: DataTypes.STRING,
     specialty: DataTypes.STRING,
     description: DataTypes.STRING,
