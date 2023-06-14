@@ -30,12 +30,12 @@ module.exports = {
         type: Sequelize.STRING
       },
       phoneNumber: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       rol_id: {
         type: Sequelize.INTEGER,
         references: {
-          model: "Roles",
+          model: "Rols",
           key: "id"
         }
       },

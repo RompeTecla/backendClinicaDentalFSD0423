@@ -4,16 +4,8 @@ const routes = require("./router");
 const app = express();
 const PORT = 3000;
 
-///////////////////////////////////////// REVISION ///////////////////////////////////////////
-//                                                                                          //
-            //  const auth = require('./middlewares/verifyToken')                           //
-            //  const authController = require('./controllers/authController');             //
-//                                                                                          //
-///////////////////////////////////////// REVISION ///////////////////////////////////////////
-
 app.use(express.json());
 app.use(routes)
-
 
 
 //Endpoint de prueba
