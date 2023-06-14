@@ -7,8 +7,7 @@ const userController = {};
 
 userController.createUser = async (req, res) => {
   try {
-    const { username, email, password, name, surname, address } =
-      req.body;
+    const { username, email, password, name, surname, address } = req.body;
 
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
@@ -19,7 +18,7 @@ userController.createUser = async (req, res) => {
       name: name,
       surname: surname,
       address: address,
-      rol_id: 3
+      rol_id: 3,
     });
 
     return res.json({
@@ -32,12 +31,11 @@ userController.createUser = async (req, res) => {
   }
 };
 
-//Función para mostrar todos los usuarios registrados omitiendo datos sensibles, incluido su rol.
+//Función para mostrar todos los usuarios registrados omitiendo datos sensibles, incluido su rol_id.
 userController.getUser = async (req, res) => {
   try {
     const userActives = await User.findAll({
       include: [
-        // Rol,
         {
           model: Rol,
           attributes: {
@@ -96,15 +94,8 @@ userController.putUserById = async (req, res) => {
   try {
     const userId = req.userId;
 
-    const {
-      username,
-      password,
-      email,
-      name,
-      surname,
-      address,
-      phoneNumber
-    } = req.body;
+    const { username, password, email, name, surname, address, phoneNumber } =
+      req.body;
 
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
@@ -116,7 +107,7 @@ userController.putUserById = async (req, res) => {
         name,
         surname,
         address,
-        phoneNumber
+        phoneNumber,
       },
       {
         where: { id: userId },
