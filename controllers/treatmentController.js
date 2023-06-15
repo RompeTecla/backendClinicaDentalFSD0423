@@ -7,7 +7,7 @@ const treatmentController = {};
 treatmentController.createTreatment = async (req, res) => {
 
     try {
-        const {name,duration,price,description,date,num_sessions,availability} = req.body;
+        const {name,duration,price,description,date,num_sessions,status} = req.body;
 
         const newTreatment = {
             name : name,
@@ -16,7 +16,7 @@ treatmentController.createTreatment = async (req, res) => {
             description : description,
             date : date,
             num_sessions : num_sessions,
-            availability: availability
+            status: status
     
         }
     // Guarda el nuevo tratamiento.
