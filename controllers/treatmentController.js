@@ -2,7 +2,7 @@ const { Treatment } = require("../models");
 
 const treatmentController = {};
 
-//Función para crear tratamientos
+// Función para crear tratamientos
 
 treatmentController.createTreatment = async (req, res) => {
 
