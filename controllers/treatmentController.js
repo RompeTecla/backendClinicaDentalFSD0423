@@ -2,7 +2,7 @@ const { Treatment } = require("../models");
 
 const treatmentController = {};
 
-// Función para crear tratamientos
+// Función para crear tratamientos nuevos.
 
 treatmentController.createTreatment = async (req, res) => {
 
@@ -30,7 +30,22 @@ treatmentController.createTreatment = async (req, res) => {
     }
 };
 
-//Función para mostrar el usuario por id de tratamiento.
+// Función para mostrar todos los tratamientos registrados en la clínica.
+
+treatmentController.getAllTreatments = async (req, res) => {
+    try {
+      const treatments = await Treatment.findAll({
+        attributes: {
+          exclude: ["createdAt", "updatedAt"]
+        }
+      });
+      return res.json(treatments);
+    } catch (error) {
+      return res.status(500).send(error.message);
+    }
+  };
+
+// Función para buscar un tratamiento por su id.
 
 treatmentController.getTreatmentById = async (req, res) => {
 
@@ -51,7 +66,7 @@ treatmentController.getTreatmentById = async (req, res) => {
     }
 };
 
-//Función para modificar Tratamiento
+// Función para modificar un Tratamiento por su id
 
 treatmentController.putTreatmentById = async (req, res) =>{
 
@@ -85,6 +100,29 @@ treatmentController.putTreatmentById = async (req, res) =>{
         return res.status(500).send(error.message)
     }
 };
+
+// Función para eliminar un tratamiento por su id
+
+treatmentController.deleteTreatmentById = async (req, res) => {
+    try {
+      const treatmentId = req.params.id;
+  
+      const deletedTreatment = await Treatment.destroy({
+        where: {
+          id: treatmentId
+        }
+      });
+  
+      if (deletedTreatment === 0) {
+        return res.status(404).json({ message: "No se encontró el tratamiento" });
+      }
+  
+      return res.json({ message: "Tratamiento eliminado correctamente" });
+    } catch (error) {
+      return res.status(500).send(error.message);
+    }
+  };
+
 
 
 
