@@ -8,25 +8,26 @@ const authController = {};
 authController.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-
+        // Se comprueba si el email introducido se encuentra en alguna fila del modelo "User" de la DB
         const user = await User.findOne({
             where: {
                 email: email
             }
         });
 
-        //Si el usuario no existe, no te da acceso y te dice "Credenciales incorrectas"
+        // Si el usuario no existe, no te da acceso y te dice "Credenciales incorrectas"
         if(!user) {
             return res.send('Credenciales incorrectas')
         }
         
-        //En caso contrario, compara con el Token de contraseñas
+        // Si el email introducido lo encuentra en la tabla, compara la contraseña 
+        // proporcionada con la contraseña encriptada con bcrypt de la base de datos.
         const isMatch = bcrypt.compareSync(password, user.password);
 
         if(!isMatch) {
-            return res.send('Credenciales incorrectas')
+            return res.send('Email y contraseña no coinciden')
         }
-
+        // Genera el Token en base a las propiedades que extrae el user que logea.
         const token = jwt.sign(
             { 
                 userId: user.id,
@@ -40,11 +41,11 @@ authController.login = async (req, res) => {
             { expiresIn: '1h'}
         );
 
-        //Si el usuario inicia sesión correctamente, se muestra su token.
+        //Cuando el usuario inicia sesión correctamente, se muestra su token generado.
         return res.json(
             {
                 success: true,
-                message: "Login successfully",
+                message: (`¿En que podemos ayudarte ${user.name}?`),
                 token: token
             }
         )

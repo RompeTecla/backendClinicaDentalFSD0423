@@ -1,13 +1,15 @@
 const isDentist = (req, res, next) => {
   try {
-    //Si el rol_id no es 2, no podrás iniciar sesión como Dentista.
-    if (req.rol_id !== 2) {
-      return res.status(500).json({
-        success: true,
-        message: "No tienes permisos.",
-      });
-    }
-    next();
+    //Si el rolId no es 3, verificará que no eres Administrador.
+    if (req.rolId !==2 ){
+
+      return res.status(403).json(  {
+          success: true,
+          message: "No tienes permisos.",
+        });
+  }
+  // console.log(`Esto es el rolid ${req.rolId}`)
+  next();
     //Recoge el posible error
   } catch (error) {
     return res.status(500).json({
@@ -17,5 +19,4 @@ const isDentist = (req, res, next) => {
     });
   }
 };
-
 module.exports = isDentist;

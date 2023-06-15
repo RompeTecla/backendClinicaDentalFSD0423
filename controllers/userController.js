@@ -18,9 +18,9 @@ userController.createUser = async (req, res) => {
       name: name,
       surname: surname,
       address: address,
-      rol_id: 3,
+      rol_id: req.body.rol_id || 1    //En el registro puede elegir que rol es, si no lo elije, por defecto es 1
     });
-
+console.log(newUser)
     return res.json({
       success: true,
       message: "Usuario Registrado",
@@ -62,7 +62,7 @@ userController.getUser = async (req, res) => {
 
 userController.getUserById = async (req, res) => {
   try {
-    const userId = req.userId;
+    const userId = req.params.id;
 
     const user = await User.findByPk(userId, {
       include: [
@@ -89,7 +89,7 @@ userController.getUserById = async (req, res) => {
   }
 };
 
-//Función para actualizar el usuario por su ID.
+//Función para actualizar el usuario por su ID. Requiere la contraseña de usuario.
 userController.putUserById = async (req, res) => {
   try {
     const userId = req.userId;
@@ -97,23 +97,23 @@ userController.putUserById = async (req, res) => {
     const { username, password, email, name, surname, address, phoneNumber } =
       req.body;
 
-    const encryptedPassword = bcrypt.hashSync(password, 10);
-
-    const updateUser = await User.update(
-      {
-        username,
-        encryptedPassword,
-        email,
-        name,
-        surname,
-        address,
-        phoneNumber,
-      },
-      {
-        where: { id: userId },
-      }
-    );
-
+      const encryptedPassword = bcrypt.hashSync(password, 10);
+      
+      const updateUser = await User.update(
+        {
+          username,
+          encryptedPassword,
+          email,
+          name,
+          surname,
+          address,
+          phoneNumber,
+        },
+        {
+          where: { id: userId },
+        }
+        );
+        
     return res.json(updateUser);
   } catch (error) {
     return res.status(500).send(error.message);
