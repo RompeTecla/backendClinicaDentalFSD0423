@@ -6,6 +6,6 @@ const router = require("express").Router();
 
 // Rutas disponibles para el modelo Rol
 router.post("/rol/create", verifyToken, isAdmin, rolController.createRol)       //OK
-router.get("/rol/:id", verifyToken, rolController.getRolById)                   //OK
+router.get("/rol/:id", verifyToken, isAdmin, rolController.getRolById)                   //OK
 
 module.exports = router

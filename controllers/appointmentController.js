@@ -72,17 +72,14 @@ appointmentController.getAppointmentById = async (req, res) => {
         },
       ],
       attributes: {
-        exclude: [
-          "user_id",
-          "treatment_id",
-          "createdAt",
-          "updatedAt",
-        ],
+        exclude: ["user_id", "treatment_id", "createdAt", "updatedAt"],
       },
     });
 
     if (appointments.length === 0) {
-      return res.status(404).json({ message: "El usuario no tiene citas pendientes" });
+      return res
+        .status(404)
+        .json({ message: "El usuario no tiene citas pendientes" });
     }
 
     res.json(appointments);
@@ -163,6 +160,5 @@ appointmentController.deleteAppointmentById = async (req, res) => {
     res.status(500).json({ message: "Error eliminando la cita." });
   }
 };
-
 
 module.exports = appointmentController;
