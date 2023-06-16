@@ -6,16 +6,18 @@ const appointmentController = {};
 
 appointmentController.createAppointment = async (req, res) => {
   try {
-    const { user_id, treatment_id, status, observations, date } = req.body;
+    const { treatment_id, status, observations, date } = req.body;
 
-    const newAppointment = 
-      {
-        user_id: user_id,
-        treatment_id: treatment_id,
-        status: status,
-        observations: observations,
-        date: date,
-      };
+    // Obtener el user_id del token del usuario autenticado
+    const userId = req.userId;
+
+    const newAppointment = {
+      user_id: userId,
+      treatment_id: treatment_id,
+      status: status,
+      observations: observations,
+      date: date,
+    };
 
     const appointment = await Appointment.create(newAppointment);
 
@@ -24,6 +26,8 @@ appointmentController.createAppointment = async (req, res) => {
     return res.status(500).send(error.message);
   }
 };
+
+module.exports = appointmentController;
 
 // Función para que el Dentista pueda ver todas las citas pendientes.
 
