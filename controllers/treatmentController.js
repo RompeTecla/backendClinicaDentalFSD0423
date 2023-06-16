@@ -14,7 +14,6 @@ treatmentController.createTreatment = async (req, res) => {
             duration : duration,
             price : price,
             description : description,
-            date : date,
             num_sessions : num_sessions,
             status: status
     
