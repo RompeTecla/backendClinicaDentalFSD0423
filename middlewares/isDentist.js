@@ -1,6 +1,6 @@
 const isDentist = (req, res, next) => {
   try {
-    //Si el rolId no es 3, verificará que no eres Administrador.
+    //Si el rolId no es 2, verificará que no eres Administrador.
     if (req.rolId !== 2) {
       return res.status(403).json({
         success: true,

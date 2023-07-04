@@ -13,8 +13,7 @@ module.exports = {
         {
           id: 1,
           username: "JuanCar",
-          password:
-            "$2b$10$pBl2Vpv7DLm.d/8mn3RsgOL6/qTbBiphkXHkCREKHDVPdXVwbMI0e",
+          password: "$2b$10$pBl2Vpv7DLm.d/8mn3RsgOL6/qTbBiphkXHkCREKHDVPdXVwbMI0e",
           email: "titojuancardijo@queviva.es",
           name: "Juan Carlos",
           surname: "Borbón",
@@ -27,8 +26,7 @@ module.exports = {
         {
           id: 2,
           username: "Escobar",
-          password:
-            "$2b$10$TVyh8V6JdjayqFLp5VR6XeTOrJ.2/T//S6/JpgfwoID5MG0bQKn3C",
+          password: "$2b$10$TVyh8V6JdjayqFLp5VR6XeTOrJ.2/T//S6/JpgfwoID5MG0bQKn3C",
           email: "manoloescobar69@carro.mi",
           name: "Manuel",
           surname: "Escobar",
@@ -41,8 +39,7 @@ module.exports = {
         {
           id: 3,
           username: "Javier",
-          password:
-            "$2b$10$.ob5BXlmpHNIQ0JE4/LUMeKo7Dgcwp6E0uGyrVCWPoNYHaMRVoOMm",
+          password: "$2b$10$.ob5BXlmpHNIQ0JE4/LUMeKo7Dgcwp6E0uGyrVCWPoNYHaMRVoOMm",
           email: "javier@gmail.com",
           name: "Javier",
           surname: "Valiente",

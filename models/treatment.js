@@ -16,10 +16,10 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       duration: DataTypes.STRING,
       num_sessions: DataTypes.STRING,
-      price: DataTypes.STRING,
       specialty: DataTypes.STRING,
       description: DataTypes.STRING,
-      status: DataTypes.STRING,
+      price: DataTypes.STRING,
+      status: DataTypes.STRING
     },
     {
       sequelize,
