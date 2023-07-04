@@ -7,7 +7,7 @@ const userController = {};
 
 userController.createUser = async (req, res) => {
   try {
-    const { username, email, password, name, surname, address } = req.body;
+    const { username, email, password, name, surname, address, phone, date_of_birth, gender, postcode } = req.body;
 
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
@@ -18,6 +18,10 @@ userController.createUser = async (req, res) => {
       name: name,
       surname: surname,
       address: address,
+      phone: phone,
+      date_of_birth: date_of_birth,
+      gender: gender,
+      postcode: postcode,
       rol_id: req.body.rol_id || 1, //En el registro puede elegir que rol es, si no lo elije, por defecto es 1
     });
     console.log(newUser);
@@ -94,7 +98,7 @@ userController.putUserById = async (req, res) => {
   try {
     const userId = req.userId;
 
-    const { username, password, email, name, surname, address, phoneNumber } =
+    const { username, password, email, name, surname, address, phone, date_of_birth, gender, postcode } =
       req.body;
 
     const encryptedPassword = bcrypt.hashSync(password, 10);
@@ -107,7 +111,10 @@ userController.putUserById = async (req, res) => {
         name,
         surname,
         address,
-        phoneNumber,
+        phone,
+        date_of_birth,
+        gender,
+        postcode
       },
       {
         where: { id: userId },

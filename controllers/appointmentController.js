@@ -1,4 +1,4 @@
-const { Appointment, Treatment, User } = require("../models");
+const { Appointment, Treatment, Dentist, Pacient } = require("../models");
 
 const appointmentController = {};
 
@@ -6,13 +6,12 @@ const appointmentController = {};
 
 appointmentController.createAppointment = async (req, res) => {
   try {
-    const { treatment_id, status, observations, date } = req.body;
-
-    // Obtener el user_id del token del usuario autenticado
-    const userId = req.userId;
+    const { pacient_id, dentist_id, treatment_id, status, observations, date } =
+      req.body;
 
     const newAppointment = {
-      user_id: userId,
+      pacient_id: pacient_id,
+      dentist_id: dentist_id,
       treatment_id: treatment_id,
       status: status,
       observations: observations,
@@ -27,37 +26,40 @@ appointmentController.createAppointment = async (req, res) => {
   }
 };
 
-module.exports = appointmentController;
-
-// Función para que el Dentista pueda ver todas las citas pendientes.
+// Función para ver todas las citas.
 
 appointmentController.getAppointment = async (req, res) => {
   let citasActivas = await Appointment.findAll({
-    attributes: ["user_id", "date", "treatment_id", "observations", "status"],
+    attributes: ["pacient_id", "dentist_id", "treatment_id", "status"],
   });
   res.status(200).json({
-    message: "Estas son todas las citas pendientes.",
+    message: "Estas son todas las citas pendientes en el calendario.",
     citasActivas,
   });
 };
 
-// Función para mostrar las citas que tiene un usuario por su userId.
+// Función para mostrar las citas que tiene un usuario con su userId.
 
 appointmentController.getAppointmentById = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.userId;
 
-    const user = await User.findOne({ where: { id: userId } });
+    const paciente = await Pacient.findOne({ where: { user_id: userId } });
 
-    if (!user) {
-      return res.status(404).json({ message: "Usuario no encontrado." });
+    if (!paciente) {
+      return res
+        .status(404)
+        .json({ message: "No se han encontrado pacientes con este usuario." });
     }
+
+    const pacientId = paciente.id;
 
     const appointments = await Appointment.findAll({
       where: {
-        user_id: userId,
+        pacient_id: pacientId,
       },
       include: [
+        Treatment,
         {
           model: Treatment,
           attributes: {
@@ -65,22 +67,33 @@ appointmentController.getAppointmentById = async (req, res) => {
           },
         },
         {
-          model: User,
+          model: Pacient,
           attributes: {
             exclude: ["user_id", "createdAt", "updatedAt"],
           },
         },
+        {
+          model: Dentist,
+          attributes: {
+            exclude: [
+              "user_id",
+              "registration_number",
+              "createdAt",
+              "updatedAt",
+            ],
+          },
+        },
       ],
       attributes: {
-        exclude: ["user_id", "treatment_id", "createdAt", "updatedAt"],
+        exclude: [
+          "pacient_id",
+          "dentist_id",
+          "treatment_id",
+          "createdAt",
+          "updatedAt",
+        ],
       },
     });
-
-    if (appointments.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "El usuario no tiene citas pendientes" });
-    }
 
     res.json(appointments);
   } catch (error) {
@@ -89,75 +102,124 @@ appointmentController.getAppointmentById = async (req, res) => {
   }
 };
 
-// Función para que un Dentista pueda modificar un appointment
-
-appointmentController.putAppointmentById = async (req, res) => {
+appointmentController.getAppointmentAsDoctor = async (req, res) => {
   try {
-    const appointmentId = req.params.appointmentId;
+    const userId = req.userId;
 
-    const appointment = await Appointment.findOne({
-      where: { id: appointmentId },
-      include: [
-        {
-          model: User,
-          attributes: ["name"],
-        },
-      ],
-    });
+    // I search the Patients table for the record corresponding to the token's userId.
+    const dentist = await Dentist.findOne({ where: { user_id: userId } });
 
-    if (!appointment) {
-      return res.status(404).json({ message: "Cita no encontrada." });
+    if (!dentist) {
+      // If a record is not found in Patients, I return an error message.
+      return res
+        .status(404)
+        .json({ message: "No patients were found associated with this user" });
     }
 
-    res.json(appointment);
+    // If I find a record in Patients, I get its pacient_id
+    const dentistId = dentist.id;
+
+    const appointments = await Appointment.findAll({
+      where: {
+        dentist_id: dentistId,
+      },
+      include: [
+        Treatment,
+        {
+          model: Treatment,
+          attributes: {
+            exclude: ["createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: Pacient,
+          attributes: {
+            exclude: ["user_id", "createdAt", "updatedAt"],
+          },
+        },
+        {
+          model: Dentist,
+          attributes: {
+            exclude: [
+              "user_id",
+              "registration_number",
+              "createdAt",
+              "updatedAt",
+            ],
+          },
+        },
+      ],
+      attributes: {
+        exclude: [
+          "pacient_id",
+          "dentist_id",
+          "treatment_id",
+          "createdAt",
+          "updatedAt",
+        ],
+      },
+    });
+
+    res.json(appointments);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error al modificar la cita." });
+    res.status(500).send(error.message);
   }
 };
 
-// Función para que un usuario pueda anular una cita suya
+// Función para modificar citas
+
+appointmentController.putAppointmentById = async (req, res) => {
+  try {
+    const userId = req.userId;
+    const appointmentId = req.params.id;
+
+    const paciente = await Pacient.findOne({ where: { user_id: userId } });
+
+    if (!paciente) {
+      return res
+        .status(404)
+        .json({ message: "No se ha encontrado paciente relacionado con este Usuario" });
+    }
+
+    const pacientId = paciente.id;
+
+    const { date } = req.body;
+
+    const updateAppointment = await Appointment.update(
+      { date: date },
+      { where: { id: appointmentId, pacient_id: pacientId } }
+    );
+
+    return res.json(updateAppointment);
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+};
+
+// Función para eliminar citas.
 
 appointmentController.deleteAppointmentById = async (req, res) => {
   try {
     const userId = req.userId;
-    const appointmentId = req.params.appointmentId;
+    const appointmentId = req.params.id;
 
-    const appointment = await Appointment.findOne({
-      where: { id: appointmentId, user_id: userId },
+    const paciente = await Pacient.findOne({ where: { user_id: userId } });
+
+    if (!paciente) {
+      return res
+        .status(404)
+        .json({ message: "Sin paciente relacionado con este usuario" });
+    }
+
+    const pacientId = paciente.id;
+
+    const deleteAppointment = await Appointment.destroy({
+      where: { id: appointmentId, pacient_id: pacientId },
     });
 
-    if (!appointment) {
-      return res.status(404).json({ message: "Cita no encontrada." });
-    }
-
-    await appointment.destroy();
-
-    res.json({ message: "Cita eliminada satisfactoriamente." });
+    return res.json(deleteAppointment);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error eliminando la cita." });
-  }
-};
-
-// Función para que un Dentista pueda eliminar la cita de cualquier cliente.
-
-appointmentController.deleteAppointmentById = async (req, res) => {
-  try {
-    const appointmentId = req.params.appointmentId;
-
-    const appointment = await Appointment.findByPk(appointmentId);
-
-    if (!appointment) {
-      return res.status(404).json({ message: "Cita no encontrada." });
-    }
-
-    await appointment.destroy();
-
-    res.json({ message: "Cita eliminada satisfactoriamente." });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error eliminando la cita." });
+    return res.status(500).send(error.message);
   }
 };
 

@@ -6,7 +6,7 @@ const treatmentController = {};
 
 treatmentController.createTreatment = async (req, res) => {
   try {
-    const { name, duration, price, description, date, num_sessions, status } =
+    const { name, duration, price, description, date, sessions_num, status } =
       req.body;
 
     const newTreatment = {
@@ -14,7 +14,8 @@ treatmentController.createTreatment = async (req, res) => {
       duration: duration,
       price: price,
       description: description,
-      num_sessions: num_sessions,
+      date: date,
+      sessions_num: sessions_num,
       status: status,
     };
     // Guarda el nuevo tratamiento.
@@ -65,15 +66,8 @@ treatmentController.putTreatmentById = async (req, res) => {
   try {
     const treatmentId = req.params.id;
 
-    const {
-      name,
-      duration,
-      price,
-      description,
-      availability,
-      date,
-      session_num,
-    } = req.body;
+    const { name, duration, price, description, status, date, session_num } =
+      req.body;
 
     const updateTreatment = await Treatment.update(
       {
@@ -82,8 +76,8 @@ treatmentController.putTreatmentById = async (req, res) => {
         price: price,
         description: description,
         date: date,
-        num_sessions: session_num,
-        availability: availability,
+        sessions_num: session_num,
+        status: status,
       },
       {
         where: {
