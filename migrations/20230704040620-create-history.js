@@ -19,7 +19,7 @@ module.exports = {
       date: {
         type: Sequelize.STRING
       },
-      observation: {
+      history: {
         type: Sequelize.TEXT
       },
       createdAt: {
