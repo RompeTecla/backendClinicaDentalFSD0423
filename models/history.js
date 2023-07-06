@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
   History.init({
     pacient_id : DataTypes.INTEGER,
     date: DataTypes.STRING,
-    history: DataTypes.TEXT
+    observation: DataTypes.TEXT
   }, {
     sequelize,
     modelName: 'History',

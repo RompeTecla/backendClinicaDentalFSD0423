@@ -178,7 +178,9 @@ appointmentController.putAppointmentById = async (req, res) => {
     if (!paciente) {
       return res
         .status(404)
-        .json({ message: "No se ha encontrado paciente relacionado con este Usuario" });
+        .json({
+          message: "No se ha encontrado paciente relacionado con este Usuario",
+        });
     }
 
     const pacientId = paciente.id;

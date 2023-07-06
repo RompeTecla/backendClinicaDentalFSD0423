@@ -25,6 +25,9 @@ module.exports = {
       amount: {
         type: Sequelize.FLOAT
       },
+      payment_method: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

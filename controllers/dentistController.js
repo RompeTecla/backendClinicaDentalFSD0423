@@ -1,4 +1,10 @@
-const { Dentist, Appointment, Speciality, Pacient, Treatment, } = require("../models");
+const {
+  Dentist,
+  Appointment,
+  Speciality,
+  Pacient,
+  Treatment,
+} = require("../models");
 
 const dentistController = {};
 

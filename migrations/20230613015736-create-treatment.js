@@ -21,11 +21,8 @@ module.exports = {
       description: {
         type: Sequelize.TEXT
       },
-      date: {
-        type: Sequelize.STRING
-      },
       session_num: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       status: {
         type: Sequelize.STRING

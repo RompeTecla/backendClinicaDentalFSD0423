@@ -20,7 +20,8 @@ module.exports = (sequelize, DataTypes) => {
     treatment_id : DataTypes.INTEGER,
     note: DataTypes.TEXT,
     date: DataTypes.STRING,
-    amount: DataTypes.FLOAT
+    amount: DataTypes.FLOAT,
+    payment_method: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Payment',

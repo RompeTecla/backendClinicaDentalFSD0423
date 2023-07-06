@@ -7,7 +7,18 @@ const userController = {};
 
 userController.createUser = async (req, res) => {
   try {
-    const { username, email, password, name, surname, address, phone, date_of_birth, gender, postcode } = req.body;
+    const {
+      username,
+      email,
+      password,
+      name,
+      surname,
+      address,
+      phone,
+      date_of_birth,
+      gender,
+      postcode,
+    } = req.body;
 
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
@@ -98,8 +109,18 @@ userController.putUserById = async (req, res) => {
   try {
     const userId = req.userId;
 
-    const { username, password, email, name, surname, address, phone, date_of_birth, gender, postcode } =
-      req.body;
+    const {
+      username,
+      password,
+      email,
+      name,
+      surname,
+      address,
+      phone,
+      date_of_birth,
+      gender,
+      postcode,
+    } = req.body;
 
     const encryptedPassword = bcrypt.hashSync(password, 10);
 
@@ -114,7 +135,7 @@ userController.putUserById = async (req, res) => {
         phone,
         date_of_birth,
         gender,
-        postcode
+        postcode,
       },
       {
         where: { id: userId },

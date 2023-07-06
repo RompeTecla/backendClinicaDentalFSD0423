@@ -9,7 +9,7 @@ rolController.createRol = async (req, res) => {
     const { privilege } = req.body;
 
     const newRol = {
-      privilege: privilege
+      privilege: privilege,
     };
 
     const rol = await Rol.create(newRol);
