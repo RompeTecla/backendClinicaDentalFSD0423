@@ -7,20 +7,20 @@ module.exports = {
       {
         id: 1,
         privilege: "User",
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: "2023-06-12 00:00:00",
+        updatedAt: "2023-06-12 00:00:00"
       },
       {
         id: 2,
         privilege: "Dentist",
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: "2023-06-12 00:00:00",
+        updatedAt: "2023-06-12 00:00:00"
       },
       {
         id: 3,
         privilege: "Admin",
-        createdAt: new Date(),
-        updatedAt: new Date(),
+        createdAt: "2023-06-12 00:00:00",
+        updatedAt: "2023-06-12 00:00:00"
       },
     ]);
   },

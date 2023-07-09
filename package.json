@@ -16,7 +16,7 @@
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "mysql2": "^3.3.4",
+    "mysql2": "^3.5.0",
     "nodemon": "^2.0.22",
     "sequelize": "^6.32.0",
     "sequelize-cli": "^6.6.1"

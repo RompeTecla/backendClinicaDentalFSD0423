@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       duration: DataTypes.STRING,
-      sessions_num: DataTypes.STRING,
+      session_num: DataTypes.STRING,
       specialty: DataTypes.STRING,
       description: DataTypes.STRING,
       price: DataTypes.STRING,

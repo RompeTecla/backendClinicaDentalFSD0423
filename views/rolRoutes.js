@@ -6,7 +6,7 @@ const router = require("express").Router();
 
 // Rutas disponibles para el modelo Rol.
 
-router.post("/rols",auth ,rolController.createRol)           // OK
-router.get("/rols/:id", auth,rolController.getRolById)       // OK
+router.post("/rols",auth, isAdmin ,rolController.createRol)           // OK
+router.get("/rols/:id", auth, isAdmin,rolController.getRolById)       // OK
 
 module.exports = router

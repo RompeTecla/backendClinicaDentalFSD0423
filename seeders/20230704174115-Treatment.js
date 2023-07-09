@@ -15,7 +15,7 @@ module.exports = {
         price: 2000,
         description:
           "Estudio del caso, radiografía integral de la boca, diseño estructural, puesta y revisiones periódicas sujeto a posibles modificaciones.",
-        sessions_num: "Según la necesidad del paciente",
+        session_num: "Según la necesidad del paciente",
         status: "Disponible",
         createdAt: "2023-06-22 00:00:00",
         updatedAt: "2023-06-22 00:00:00",
