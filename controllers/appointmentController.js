@@ -30,7 +30,7 @@ appointmentController.createAppointment = async (req, res) => {
 
 appointmentController.getAppointment = async (req, res) => {
   let citasActivas = await Appointment.findAll({
-    attributes: ["pacient_id", "dentist_id", "treatment_id", "status"],
+    attributes: ["pacient_id", "dentist_id", "treatment_id", "status", "date", "observations"],
   });
   res.status(200).json({
     message: "Estas son todas las citas pendientes en el calendario.",

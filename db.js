@@ -23,28 +23,3 @@ module.exports = sequelize.authenticate().then((db) => {
   console.log("MYSQL connected");
   return db;
 });
-
-
-// import Sequelize from 'sequelize';
-// import mysql2 from 'mysql2';
-
-// const Sequelize = new Sequelize(
-//   process.env.DB_NAME,
-//   process.env.DB_USER,
-//   process.env.DB_PASSWORD,
-//   {
-//     dialect: 'mysql',
-//     dialectModule: mysql2, // Needed to fix sequelize issues with WebPack
-//     host: process.env.DB_HOST,
-//     port: process.env.DB_PORT
-//   }
-// )
-
-// export async function connectToDatabase() {
-//   console.log('Trying to connect via sequelize')
-//   await sequelize.sync()
-//   await sequelize.authenticate()
-//   console.log('=> Created a new connection.')
-
-//   // Do something 
-// }

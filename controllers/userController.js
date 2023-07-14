@@ -33,7 +33,7 @@ userController.createUser = async (req, res) => {
       date_of_birth: date_of_birth,
       gender: gender,
       postcode: postcode,
-      rol_id: req.body.rol_id || 1, //En el registro puede elegir que rol es, si no lo elije, por defecto es 1
+      rol_id: req.body.rol_id || 1, //Por defecto es rol 1
     });
     console.log(newUser);
     return res.json({
