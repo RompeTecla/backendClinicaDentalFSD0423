@@ -17,6 +17,8 @@ const auth = (req, res, next) => {
 
     req.userId = decoded.userId;
     req.rolId = decoded.rolId;
+    req.gender = decoded.gender;
+    req.name = decoded.name;
 
     next();
   } catch (error) {

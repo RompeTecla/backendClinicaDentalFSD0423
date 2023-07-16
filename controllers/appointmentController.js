@@ -50,7 +50,8 @@ appointmentController.getAppointmentById = async (req, res) => {
       return res
         .status(404)
         .json({ message: "No se han encontrado pacientes con este usuario." });
-    }
+      }
+      console.log(res)
 
     const pacientId = paciente.id;
 

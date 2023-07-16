@@ -31,9 +31,11 @@ authController.login = async (req, res) => {
     const token = jwt.sign(
       {
         userId: user.id,
+        name: user.name,
         email: user.email,
         rolId: user.rol_id,
         username: user.username,
+        gender: user.gender
       },
 
       //El Token tiene caducidad de 1h. Llegado ese tiempo debe renovarse.
