@@ -77,7 +77,8 @@ userController.getUser = async (req, res) => {
 
 userController.getUserById = async (req, res) => {
   try {
-    const userId = req.params.id;
+    const userId = req.user.id;
+    console.log(req.user.id)
 
     const user = await User.findByPk(userId, {
       include: [

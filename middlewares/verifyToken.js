@@ -15,10 +15,12 @@ const auth = (req, res, next) => {
 
     const decoded = jwt.verify(token, "alohomora");
 
-    req.userId = decoded.userId;
-    req.rolId = decoded.rolId;
-    req.gender = decoded.gender;
-    req.name = decoded.name;
+    req.user = {
+      id: decoded.userId,
+      rolId: decoded.rolId,
+      gender: decoded.gender,
+      name: decoded.name
+    };
 
     next();
   } catch (error) {
