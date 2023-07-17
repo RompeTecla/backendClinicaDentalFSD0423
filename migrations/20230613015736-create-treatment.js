@@ -24,8 +24,8 @@ module.exports = {
       session_num: {
         type: Sequelize.STRING
       },
-      specialty: {
-        type: Sequelize.STRING,
+      specitlty: {
+        type: Sequelize.STRING
       },
       status: {
         type: Sequelize.STRING
