@@ -42,7 +42,7 @@ appointmentController.getAppointment = async (req, res) => {
 
 appointmentController.getAppointmentById = async (req, res) => {
   try {
-    const userId = req.userId;
+    const userId = req.user.id;
 
     const paciente = await Pacient.findOne({ where: { user_id: userId } });
 
@@ -104,20 +104,20 @@ appointmentController.getAppointmentById = async (req, res) => {
 };
 
 appointmentController.getAppointmentAsDoctor = async (req, res) => {
-  try {
+  try { console.log("Hola soy un error")
     const userId = req.userId;
 
-    // I search the Patients table for the record corresponding to the token's userId.
+    // Busco en la tabla Pacientes el registro correspondiente al userId del token.
     const dentist = await Dentist.findOne({ where: { user_id: userId } });
 
     if (!dentist) {
-      // If a record is not found in Patients, I return an error message.
+      // Si no se encuentra un registro en Pacientes, devuelvo un mensaje de error.
       return res
         .status(404)
-        .json({ message: "No patients were found associated with this user" });
+        .json({ message: "No se han encontrado pacientes asociados a este usuario" });
     }
 
-    // If I find a record in Patients, I get its pacient_id
+    // Si encuentro un registro en Pacientes, obtengo su pacient_id
     const dentistId = dentist.id;
 
     const appointments = await Appointment.findAll({
@@ -164,6 +164,7 @@ appointmentController.getAppointmentAsDoctor = async (req, res) => {
     res.json(appointments);
   } catch (error) {
     res.status(500).send(error.message);
+    console.log("Hola soy un error")
   }
 };
 
@@ -203,7 +204,7 @@ appointmentController.putAppointmentById = async (req, res) => {
 
 appointmentController.deleteAppointmentById = async (req, res) => {
   try {
-    const userId = req.userId;
+    const userId = req.user.id;
     const appointmentId = req.params.id;
 
     const paciente = await Pacient.findOne({ where: { user_id: userId } });
