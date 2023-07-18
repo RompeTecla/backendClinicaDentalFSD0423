@@ -77,7 +77,7 @@ userController.getUser = async (req, res) => {
 
 userController.getUserById = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
     console.log(req.user.id)
 
     const user = await User.findByPk(userId, {
@@ -108,7 +108,7 @@ userController.getUserById = async (req, res) => {
 //Función para actualizar el usuario por su ID. Requiere la contraseña de usuario.
 userController.putUserById = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     const {
       username,

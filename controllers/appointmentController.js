@@ -42,7 +42,7 @@ appointmentController.getAppointment = async (req, res) => {
 
 appointmentController.getAppointmentById = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const userId = req.user.userId;
 
     const paciente = await Pacient.findOne({ where: { user_id: userId } });
 
@@ -51,7 +51,6 @@ appointmentController.getAppointmentById = async (req, res) => {
         .status(404)
         .json({ message: "No se han encontrado pacientes con este usuario." });
       }
-      console.log(res)
 
     const pacientId = paciente.id;
 

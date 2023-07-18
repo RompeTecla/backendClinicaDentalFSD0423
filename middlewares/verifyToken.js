@@ -6,7 +6,7 @@ const auth = (req, res, next) => {
 
     if (!bearerToken) {
       return res.json({
-        succes: true,
+        success: false, // Se ha corregido "succes" a "success"
         message: "No tienes permisos.",
       });
     }
@@ -16,7 +16,7 @@ const auth = (req, res, next) => {
     const decoded = jwt.verify(token, "alohomora");
 
     req.user = {
-      id: decoded.userId,
+      userId: decoded.userId, // Se ha cambiado "id" a "userId"
       rolId: decoded.rolId,
       gender: decoded.gender,
       name: decoded.name

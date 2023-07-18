@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       price: {
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       description: {
         type: Sequelize.TEXT
@@ -24,7 +24,7 @@ module.exports = {
       session_num: {
         type: Sequelize.STRING
       },
-      specitlty: {
+      specialty: {
         type: Sequelize.STRING
       },
       status: {
