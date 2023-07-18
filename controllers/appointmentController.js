@@ -104,7 +104,7 @@ appointmentController.getAppointmentById = async (req, res) => {
 
 appointmentController.getAppointmentAsDoctor = async (req, res) => {
   try { console.log("Hola soy un error")
-    const userId = req.userId;
+    const userId = req.user.userId;
 
     // Busco en la tabla Pacientes el registro correspondiente al userId del token.
     const dentist = await Dentist.findOne({ where: { user_id: userId } });

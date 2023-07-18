@@ -12,9 +12,9 @@ module.exports = {
       [
         {
           id: 1,
-          pacient_id: 1,
+          pacient_id: 8,
           dentist_id: 1,
-          treatment_id: 1,
+          treatment_id: 3,
           status: "Pendiente",
           observations:
             "Me duele mucho la mordida en el lado derecho de la boca.",
@@ -24,9 +24,9 @@ module.exports = {
         },
         {
           id: 2,
-          pacient_id: 2,
-          dentist_id: 1,
-          treatment_id: 1,
+          pacient_id: 4,
+          dentist_id: 2,
+          treatment_id: 5,
           status: "Completado",
           observations: "Necesito un blanqueamiento, el sábado tengo una boda.",
           date: "2023-06-05",
